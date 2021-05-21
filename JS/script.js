@@ -19,19 +19,47 @@ var livre3 = {
 };
 
 var livres = [livre1, livre2, livre3];
-var conteneur = document.getElementById("liste");
+
+var conteneur = document.getElementById("liste")
+
+var lenLivres = livres.length;
 
 console.log(livres);
 
-var htmlString = "";
+
 
 function mkHtml(liste) {
-
+    var htmlString = "";
     for(var livre of liste) {
         htmlString += "<ul class=\"liste\">";
         htmlString += "<li class=\"livre\">\"" + livre.titre + "\", par \"" + livre.auteur + "\".</li>";
         htmlString += "</ul>";
+        
     }
+    return htmlString;
 }
-mkHtml(livres);
-conteneur.innerHTML = htmlString;
+
+conteneur.innerHTML = mkHtml(livres);
+
+var formulaire = document.getElementById("formulaire");
+formulaire.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    var titre = document.getElementById("titre").value;
+    var auteur = document.getElementById("auteur").value;
+    console.log(titre);
+
+    var livreX = {
+        reference: "",
+        titre: "",
+        auteur: ""
+    }
+
+    livreX.reference = lenLivres + 1;
+    livreX.titre = titre;
+    livreX.auteur = auteur;
+
+    livres.push(livreX);
+    
+    conteneur.innerHTML = mkHtml(livres);
+});
